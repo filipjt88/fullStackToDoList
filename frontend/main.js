@@ -13,7 +13,7 @@ function validateInput(input) {
 async function fetchTasks() {
     const response = await fetch('../backend/fetch_tasks.php');
     const tasks = await response.json();
-    const taskList = document.createElement('taskList');
+    const taskList = document.getElementById('taskList');
     taskList.innerHTML = '';
 
     tasks.forEach((task) => {
@@ -35,7 +35,7 @@ async function addTask() {
     if(!validateInput(taskInput)) return;
 
     const formData = new FormData();
-    formData.append('taskName', taskInput.value);
+    formData.append('task_name', taskInput.value);
 
     await fetch('../backend/add_task.php',{
         method: 'POST',
@@ -43,4 +43,38 @@ async function addTask() {
     });
     taskInput.value = '';
     fetchTasks();
+}
+
+
+// Update task
+async function editTask(id, currentName) {
+    const newTaskName = prompt("Edit tasks:", currentName);
+    if(newTaskName == null || newTaskName.trim() === "") {
+        alert("Task name cannot be empty");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('id',id);
+    formData.append('task_name', newTaskName);
+
+    await fetch('../backend/edit_task.php', {
+        method: 'POST',
+        body: formData
+    });
+    fetchTasks();
+}
+
+// Delete task
+async function deleteTask(id) {
+    if(confirm("Are you sure you want to delete this task?")) {
+        const formData = new FormData();
+        formData.append('id',id);
+
+        await fetch('../backend/delete_task.php', {
+            method: 'POST',
+            body: formData
+        });
+        fetchTasks();
+    }
 }
