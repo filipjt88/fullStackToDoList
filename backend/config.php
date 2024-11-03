@@ -1,15 +1,16 @@
 <?php
-
-// config
-
+// config.php
 $host = 'localhost';
-$db_name = 'todo_app';
+$dbname = 'todo_app'; // Ime baze podataka mora biti tačno
 $user = 'root';
 $pass = '';
 
 try {
-    $pdo = new PDO("mysql:host=$host;db_name=$db_name", $user, $pass);
+    // Proveri da li si ispravno naveo ime baze podataka u DSN-u
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $error) {
-    die('Connection failed: ' . $error->getMessage());
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
+?>
+

@@ -16,7 +16,7 @@ async function fetchTasks() {
     const taskList = document.getElementById('taskList');
     taskList.innerHTML = '';
 
-    tasks.forEach((task) => {
+    tasks.forEach(task => {
         const li = document.createElement('li');
         li.classList.add('list-group-item');
         li.innerHTML = `
@@ -78,3 +78,4 @@ async function deleteTask(id) {
         fetchTasks();
     }
 }
+
