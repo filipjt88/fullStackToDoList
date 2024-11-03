@@ -13,10 +13,6 @@ if(!empty($_POST['task_name'])) {
 }
 
 
-<?php
-// add_task.php
-include 'config.php';
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -40,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
-?>
 
 
 
